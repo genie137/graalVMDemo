@@ -17,7 +17,6 @@ public class RouteController {
     @GetMapping(path = "/", produces = "application/json")
     public ResponseEntity<SimpleResponseMessage> getSimple() {
         return new ResponseEntity<>(new SimpleResponseMessage(String.format("Hello?")), HttpStatus.OK);
-
     }
 
     @GetMapping(path = "/{name}", produces = "application/json")

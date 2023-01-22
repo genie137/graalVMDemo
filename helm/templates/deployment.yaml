@@ -1,22 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: graalvmtest-deployment
+  name: {{.Release.Name}}-deployment
   labels:
-    app: graalvmtest-app
+    app: {{.Release.Name}}-app
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
-      app: graalvmtest-app
+      app: {{.Release.Name}}-app
   template:
     metadata:
       labels:
-        app: graalvmtest-app
+        app: {{.Release.Name}}-app
     spec:
       containers:
-        - name: graalvmdemocontainer
-          image: graalvmdemoimage:latest
-          imagePullPolicy: Never
+        - name: {{.Release.Name}}-container
+          image: registry.hub.docker.com/genie137/{{ternary "graalvmdemoimage" "nongraaldemoimage" .Values.native}}:latest
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8887
+          readinessProbe:
+            httpGet:
+              port: 8887
+              path: /actuator/health/readiness
