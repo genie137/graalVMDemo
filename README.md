@@ -14,7 +14,8 @@ Fix docker credentials: `nano ~/.docker/config.json` and remove auth provider.
 
 ## Build the thing:
 1. Set Liberica NIK SDK: `sdk use java 22.3.r17-nik`
-2. Build: `mvn package jib:dockerBuild -Pnative`
+2. Image naar minikube?: `eval $(minikube docker-env)    `
+3. Build: `mvn package jib:dockerBuild -Pnative`
 
 ## Run the thing:
 1. Start container from docker desktop, open ports.

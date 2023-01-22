@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graalvmtest-deployment
+  labels:
+    app: graalvmtest-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: graalvmtest-app
+  template:
+    metadata:
+      labels:
+        app: graalvmtest-app
+    spec:
+      containers:
+        - name: graalvmdemocontainer
+          image: graalvmdemoimage:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
