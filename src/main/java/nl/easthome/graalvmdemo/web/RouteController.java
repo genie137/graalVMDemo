@@ -1,5 +1,6 @@
 package nl.easthome.graalvmdemo.web;
 
+import nl.easthome.graalvmdemo.models.HostResponseMessage;
 import nl.easthome.graalvmdemo.models.SimpleResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class RouteController {
         return new ResponseEntity<>(new SimpleResponseMessage(String.format("Hello, %s!", StringUtils.capitalize(name))), HttpStatus.OK);
     }
     @GetMapping(path = "/host", produces = "application/json")
-    public ResponseEntity<SimpleResponseMessage> getHost() throws UnknownHostException {
-        return new ResponseEntity<>(new SimpleResponseMessage(String.format("I am: %s!", StringUtils.capitalize(InetAddress.getLocalHost().getHostName()))), HttpStatus.OK);
+    public ResponseEntity<HostResponseMessage> getHost() throws UnknownHostException {
+        return new ResponseEntity<>(new HostResponseMessage(String.format(StringUtils.capitalize(InetAddress.getLocalHost().getHostName()))), HttpStatus.OK);
     }
 }
